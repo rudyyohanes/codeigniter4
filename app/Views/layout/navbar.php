@@ -6,9 +6,12 @@
       <!-- <span class="navbar-toggler-icon"></span> -->
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/pages/about">About</a>
-        <a class="nav-link" href="/pages/contact">Contact</a>
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-item nav-link" href="/pages/about">About</a>
+        <a class="nav-item nav-link" href="/pages/contact">Contact</a>
+        <a class="nav-item nav-link" href="/movies">Movies</a>
+      </div>
     </div>
   </div>
   </div>
