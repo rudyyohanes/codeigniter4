@@ -4,8 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="col">
+          <a href="/movies/create" class="btn btn-primary mt-5">Add movie data</a>
         <h1 class="mt-4">Movie Lists</h1>
-        <a href="/movies/create" class="btn btn-primary mb-5">Add movie data</a>
+        <?php if (session()->getFlashdata('message')) : ?>
+        <div class="alert alert-success" role="alert">
+        <?= session()->getFlashdata('message'); ?>
+        </div>
+        <?php endif; ?>
         <table class="table table-info table-stripped table-hover">
   <thead>
     <tr>

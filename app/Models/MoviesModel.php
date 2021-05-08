@@ -8,6 +8,7 @@ class MoviesModel extends Model
 {
     protected $table = 'movies';
     protected $useTimestamps = true;
+    protected $allowedFields = ['title', 'slug', 'director', 'production', 'poster', 'released', 'plot'];
 
     public function getMovies($slug = false)
     {

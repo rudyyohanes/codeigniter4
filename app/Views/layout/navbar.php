@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="navbar-brand" href="#">Rudy Yohanes</a>
+        <a class="navbar-brand" href="#">RUDY'S WEBSITE</a>
         <a class="nav-item nav-link active" aria-current="page" href="/">Home</a>
         <a class="nav-item nav-link" href="/pages/about">About</a>
         <a class="nav-item nav-link" href="/pages/contact">Contact</a>
