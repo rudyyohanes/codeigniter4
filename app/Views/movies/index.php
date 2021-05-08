@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col">
         <h1 class="mt-4">Movie Lists</h1>
+        <a href="/movies/create" class="btn btn-primary mb-5">Add movie data</a>
         <table class="table table-info table-stripped table-hover">
   <thead>
     <tr>
@@ -23,7 +24,7 @@
       <td><img src="/img/<?= $m['poster']; ?>" alt="" class="poster"></td>
       <td><?= $m['title']; ?></td>
       <td><?= $m['released']; ?></td>
-      <td><a href="" class="btn btn-success">Detail</a></td>
+      <td><a href="/movies/<?= $m['slug']; ?>" class="btn btn-success">Detail</a></td>
     </tr>
     <?php endforeach ?>
   </tbody>

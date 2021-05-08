@@ -19,7 +19,7 @@ class Movies extends BaseController
         
         $data = [
             'title' => 'Movie List | Test CI 4',
-            'movie' => $movie
+            'movie' => $this->movieModel->getMovies()
         ];
 
         // cara connect db tanpa model
@@ -36,5 +36,23 @@ class Movies extends BaseController
         // dd($movie);
 
         return view('movies/index', $data);
+    }
+
+    public function detail($slug)
+    {
+        $movie = $this->movieModel->getMovies($slug);
+        $data = [
+            'title' => 'Movie Detail | Test CI 4',
+            'movies' => $this->movieModel->getMovies($slug)
+        ];
+        return view('movies/detail', $data);
+    }
+
+    public function create()
+    {
+        $data = [
+            'title' => 'Add movie form | Test CI 4'
+        ];
+        return view('movies/create', $data);
     }
 }
