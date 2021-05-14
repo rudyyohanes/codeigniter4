@@ -27,5 +27,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
     -->
+    <script>
+      function previewImg() {
+        const poster = document.querySelector('#poster');
+        const posterLabel = document.querySelector('.custom-file-label');
+        const imgThumbnail = document.querySelector('.img-thumbnail');
+
+        posterLabel.textContent = poster.files[0].name;
+
+        const filePoster = new FileReader();
+        filePoster.readAsDataURL(poster.files[0]);
+
+        filePoster.onload = function(e) {
+          imgThumbnail.src = e.target.result;
+        }
+      }
+    </script>
   </body>
 </html>

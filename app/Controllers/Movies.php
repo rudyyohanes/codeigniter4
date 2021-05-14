@@ -75,11 +75,32 @@ class Movies extends BaseController
                     'required' => '{field} can not empty.',
                     'is_unique' => 'movie {field} already registered.'
                 ]
+                ],
+            'poster' => [
+                'rules' => 'max_size[poster,1024]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]',
+                'errors' => [
+                    // 'uploaded' => 'Please choose picture',
+                    'max_size' => 'File size limit 1 MB',
+                    'is_image' => 'The choosen file is not an image',
+                    'mime_in' => 'The choosen file is not an image'
+                ]
             ]
         ])) {
-            $validation = \Config\Services::validation();
-            return redirect()->to('/movies/create')->withInput()->with('validation', $validation);
+            // $validation = \Config\Services::validation();
+            // return redirect()->to('/movies/create')->withInput()->with('validation', $validation);
+            return redirect()->to('/movies/create')->withInput();
         }
+
+        // Get file
+        $filePoster = $this->request->getFile('poster');
+
+        if ($filePoster->getError() == 4) {
+            $posterName = 'default.jpg';
+        } else {
+            $posterName = $filePoster->getRandomName();
+            $filePoster->move('img', $posterName);
+        }
+        
 
         $slug = url_title($this->request->getVar('title'), '-', true);
         $this->movieModel->save([
@@ -87,7 +108,7 @@ class Movies extends BaseController
             'slug' => $slug,
             'director' => $this->request->getVar('director'),
             'production' => $this->request->getVar('production'),
-            'poster' => $this->request->getVar('poster'),
+            'poster' => $posterName,
             'released' => $this->request->getVar('released'),
             'plot' => $this->request->getVar('plot')
         ]);
@@ -99,6 +120,12 @@ class Movies extends BaseController
 
     public function delete($id)
     {
+        $movie = $this->movieModel->find($id);
+
+        if ($movie['poster'] != 'default.jpg') {
+            unlink('img/' . $movie['poster']);
+        }
+
         $this->movieModel->delete($id);
         session()->setFlashdata('message', 'Delete data success.');
         return redirect()->to('/movies');
@@ -131,10 +158,29 @@ class Movies extends BaseController
                     'required' => '{field} can not empty.',
                     'is_unique' => 'movie {field} already registered.'
                 ]
-            ]
+                ],
+                'poster' => [
+                    'rules' => 'max_size[poster,1024]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        // 'uploaded' => 'Please choose picture',
+                        'max_size' => 'File size limit 1 MB',
+                        'is_image' => 'The choosen file is not an image',
+                        'mime_in' => 'The choosen file is not an image'
+                    ]
+                ]
         ])) {
-            $validation = \Config\Services::validation();
-            return redirect()->to('/movies/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+            // $validation = \Config\Services::validation();
+            return redirect()->to('/movies/edit/' . $this->request->getVar('slug'))->withInput();
+        }
+        // 
+        $filePoster = $this->request->getFile('poster');
+
+        if ($filePoster->getError() == 4) {
+            $posterName = $this->request->getVar('oldPoster');
+        } else {
+            $posterName = $filePoster->getRandomName();
+            $filePoster->move('img', $posterName);
+            unlink('img/' . $this->request->getVar('oldPoster'));
         }
 
         $slug = url_title($this->request->getVar('title'), '-', true);
@@ -144,7 +190,7 @@ class Movies extends BaseController
             'slug' => $slug,
             'director' => $this->request->getVar('director'),
             'production' => $this->request->getVar('production'),
-            'poster' => $this->request->getVar('poster'),
+            'poster' => $posterName,
             'released' => $this->request->getVar('released'),
             'plot' => $this->request->getVar('plot')
         ]);

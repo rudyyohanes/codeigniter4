@@ -7,7 +7,7 @@
         <div class="col-8">
             <h2 class="my-4">Add movie form</h2>
 
-            <form action="/movies/save" method="post">
+            <form action="/movies/save" method="post" enctype="multipart/form-data">
             <?= csrf_field(); ?>
   <div class="row mb-3">
     <label for="title" class="col-sm-2 col-form-label">Title</label>
@@ -33,8 +33,18 @@
   </div>
   <div class="row mb-3">
     <label for="poster" class="col-sm-2 col-form-label">Poster</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="poster" name="poster" value="<?= old('poster');?>">
+    <div class="col-sm-2">
+      <img src="/img/default.jpg" class="img-thumbnail">
+    </div>
+    <div class="col-sm-8">
+    <div class="input-group">
+  <input type="file" class="form-control <?= ($validation->hasError('poster')) ? 
+      'is-invalid' : ''; ?>" id="poster" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="poster" onchange="previewImg()">
+      <div id="validationServerUsernameFeedback" class="invalid-feedback">
+          <?= $validation->getError('poster'); ?>
+      </div>
+  <button class="btn btn-outline-secondary custom-file-label" type="button" id="inputGroupFileAddon04">Browse</button>
+</div>
     </div>
   </div>
   <div class="row mb-3">
