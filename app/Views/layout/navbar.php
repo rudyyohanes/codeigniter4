@@ -12,6 +12,7 @@
         <a class="nav-item nav-link" href="/pages/about">About</a>
         <a class="nav-item nav-link" href="/pages/contact">Contact</a>
         <a class="nav-item nav-link" href="/movies">Movies</a>
+        <a class="nav-item nav-link" href="/people">People</a>
       </div>
     </div>
   </div>
